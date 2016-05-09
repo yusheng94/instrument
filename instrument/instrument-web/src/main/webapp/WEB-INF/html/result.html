@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Insert title here</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link href="../css/bootstrap-min.css" rel="stylesheet">
+<link href="../css/flat-ui.css" rel="stylesheet">
+<script type="text/javascript" src="../js/jquery1.9.0.min.js"></script>
+<script type="text/javascript" src="../js/jquery-validate.min.js"></script>
+<script type="text/javascript" src="../js/upload.js"></script>
+<script src="../js/flat-ui.min.js"></script>
+<script src="../js/application.js"></script>
+<style type="text/css">
+input[type=file]{
+	font-size: 10px;
+	font-family: microsoft YaHei;
+}
+.radio + .radio, .checkbox + .checkbox{
+	margin-top: 0px;
+}
+
+
+</style>
+  <script type="text/javascript">
+ 
+  function ads(){
+	  $.ajax({
+			 url: '/instrument-web/show' ,  
+	         type: 'POST',
+	         async: false,  
+	         cache: false,  
+	         contentType: false,  
+	         processData: false,  
+	         success: function (data) {  
+	     		var tableId = parent.$("#if").attr("title");
+	     		$("#download").val(tableId);
+ 	            $("div:first #title").html(data[tableId].desc);
+ 	   			var arr = new Array();
+ 	  			 arr = eval(data[tableId].list);
+ 	 			  for(i = 0;i < arr.length ; i++){ 
+ 			 
+ 				  if(arr[i].type == "radio"){
+ 					  r = new Array();
+ 					  r = arr[i].label.split(":")[1].split(",");
+ 					  val = new Array();
+ 					  val = arr[i].value.split(",");
+ 					  $(".form-horizontal").append("<div class='form-group form-group-sm' ><label class='col-sm-2 control-label' for="+arr[i].id+">"+arr[i].label.split(":")[0]+":</label></div>");
+ 					  $("label[for="+arr[i].id+"]").after("<div class='col-sm-10' id="+arr[i].id+"></div>");
+ 					  for(j=0;j<r.length;j++){ 
+ 						 if(j==0){
+ 							$("div[id="+arr[i].id+"]").append("<label class='radio col-sm-2'><input class='custom-radio' checked='checked' data-toggle='radio' list="+j+" type="+arr[i].type+" id="+arr[i].id+" name="+arr[i].id +" value="+val[j]+"></label>"); 
+ 						 }else{
+ 						 $("div[id="+arr[i].id+"]").append("<label class='radio col-sm-2'><input class='custom-radio' data-toggle='radio' list="+j+" type="+arr[i].type+" id="+arr[i].id+" name="+arr[i].id +" value="+val[j]+"></label>");
+ 						 }
+ 						 $("#"+arr[i].id+" input[list = "+j+"]").after("<span class='icons'><span class='icon-unchecked'></span><span class='icon-checked'></span></span>")
+	 				  	 $("#"+arr[i].id+" input[list = "+j+"]").after(r[j]);
+	 				  }
+ 				  }else if(arr[i].type=="hidden"){
+ 					 $(".form-horizontal").append("<input type="+arr[i].type+" id="+arr[i].id+" value="+arr[i].value+">");
+ 				 
+ 				  }else if(arr[i].type=="file"){
+ 					 $(".form-horizontal").append("<div class='form-group form-group-sm' ><label class='col-sm-2 control-label' for="+arr[i].id+">"+arr[i].label+":</label>"+
+ 		 				 "<div class='col-sm-10'><input class='form-control' type="+arr[i].type+" name='file' oid="+i+" id="+arr[i].id+" value="+arr[i].value+"></div></div>");
+ 			  
+ 				  } else{
+ 					 $(".form-horizontal").append("<div class='form-group form-group-sm' ><label class='col-sm-2 control-label' for="+arr[i].id+">"+arr[i].label+":</label>"+
+ 					 "<div class='col-sm-10'><input class='form-control' name="+arr[i].id+" type="+arr[i].type+" id="+arr[i].id+" value="+arr[i].value+"></div></div>");
+ 				  }
+ 		 		  }
+	       	  }
+	  });
+ 	 
+  }
+  </script>
+</head>
+<body onload="ads()">
+<div style="padding-left: 30px;">
+		<p id="title"></p>
+</div>
+<div style="width: 90%;margin-left: 30px;" id="main">
+ 		<form class="form-horizontal" role="form" id="form" >
+ 		</form>
+ 		 <div align="left" id="buttonarea">
+        <button class="btn btn-success" type="button" id="bulid">生成</button>
+         <a id="addr" href="#" download="#">
+        <button class="btn btn-success" type="button" name="" id="download" disabled ="disabled" value="">下载</button>  
+       </a>
+       <span><a href="#"></a></span>
+        </div>
+</div>
+<script type="text/javascript">
+$(document).ready(function(){ 
+		$("#bulid").click(function(){	
+			 if($("input[type=file]").length > 0 && $("input[type=file]").val().length > 0){
+				 doUpload();
+			 }else if($("input[type=file]").length > 0 && $("input[type=file]").val().length==0){
+			 	alert("请选择文件");
+			 }else{
+				submitForm();
+			 }	 
+				});
+		 $("#download").click(function(){
+			 $("#addr").attr("href","/instrument-web/download?id="+$(this).attr("name"));
+			 $("#addr").attr("download",$(this).attr("name"));
+		});
+		 $("#buttonarea span").click(function(){
+			 $("#addr").attr("href","/instrument-web/download?id="+$(this).attr("name"));
+			 $("#addr").attr("download",$(this).attr("name"));
+			 $("#download").click();
+		});
+	});
+
+function doUpload() { 
+	
+	var formData = new FormData($("#form")[0]);
+    $.ajax({  
+         url: '/instrument-web/upload' ,  
+         type: 'POST',  
+         data: formData,  
+         async: false,  
+         cache: false,  
+         contentType: false,  
+         processData: false,  
+         success: function (msg) {
+        	 for(var key in msg){
+        		 if(key == "E0001") alert("文件格式不正确");
+        		 if(key == "E0002") alert("文件上传失败"); 
+        	 	 if(key =="S0002"){
+        	 		submitForm();
+        	 	 }
+        	 }
+         },  
+         error: function () {  
+             alert("操作失败");  
+         }  
+    });  
+}
+
+function submitForm(){
+	var params = {};
+	var tableId = parent.$("#if").attr("title");
+	var fields = $('#form').serializeArray();
+    $.each(fields, function (i, field) {
+        params[field.name] = $.trim(field.value);
+    });
+    var data ={};
+    data[tableId] = params;
+	 $.ajax({
+			url : "/instrument-web/generate",
+			async :false,
+			type : "POST",
+			contentType :"application/json;charset=UTF-8",
+			data:JSON.stringify(data),
+			dataType : "json",
+			success:function(msg){
+				$("#download").attr("disabled",false);
+				 for(var key in msg){
+	        		 if(key == "address") {
+	        			 $("#buttonarea span a").html(msg[key]);
+	        			 $("#download").attr("name",msg[key]);
+	        			 alert("成功生成脚本");
+	        		   }
+	        		 }
+			}
+		
+		});
+	
+}
+</script>
+</body>
+</html>

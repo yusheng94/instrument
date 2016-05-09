@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<project
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
+	xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>com.iboxpay</groupId>
+		<artifactId>instrument</artifactId>
+		<version>1.0.0</version>
+	</parent>
+	<groupId>com.iboxpay</groupId>
+	<artifactId>instrument-web</artifactId>
+	<version>1.0.0</version>
+	<packaging>war</packaging>
+	<name>instrument-web Maven Webapp</name>
+	<url>http://maven.apache.org</url>
+	<dependencies>
+		<dependency>
+			<groupId>com.iboxpay</groupId>
+			<artifactId>instrument-core</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+	</dependencies>
+	<build>
+		<finalName>instrument-web</finalName>
+	</build>
+</project>

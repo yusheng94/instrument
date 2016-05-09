@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Templet id="1000" desc="新增绑定微信商户号"><!--desc -->
+	<input id="MCHT_NO" type="file" label="商户号"  value=""/>
+	<input id="APP_ID" type="text" label="应用ID" value="wx92f6dbb646e17dc5" /><!-- 
+		value为页面默认值 -->
+	<input id="MCH_ID" type="text" label="微信交易商户号" value="10012102" />
+	<input id="SUB_MCH_ID" type="text" label="微信交易子商户号" value="1315726001" />
+	<input id="APP_KEY" type="text" label="微信交易Key" value="5b3e1d34893ce4be665bdd1821743d5d" />
+	<input id="STATUS" type="radio" label="服务状态:正常,关闭" value="1,0" /><!-- 默认自动选择第一个正常 -->
+	<input id="REMARK" type="text" label="备注" value="深圳星瑞永贸易有限公司" />
+	<input id="CRT_USER" type="text" label="创建人" value=""/>
+</Templet>

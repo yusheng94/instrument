@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration scan="true" scanPeriod="10 seconds" debug="DEBUG">
+	<substitutionProperty name="log.base" value="./log" />
+	<substitutionProperty name="log.app" value="${log.base}/app" />
+
+	<appender name="stdout" class="ch.qos.logback.core.ConsoleAppender">
+		<layout class="ch.qos.logback.classic.PatternLayout">
+			<pattern>%date{yyyy-MM-dd HH:mm:ss} %-5level %logger{80}
+				%X{transactionId} - %msg%n</pattern>
+		</layout>
+	</appender>
+
+	<appender name="onlineLog"
+		class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<File>${log.app}/online.log</File>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<FileNamePattern>
+				${log.app}/online.log.%d{yyyy-MM-dd-HH}.%i
+			</FileNamePattern>
+			<TimeBasedFileNamingAndTriggeringPolicy
+				class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+				<MaxFileSize>5MB</MaxFileSize>
+			</TimeBasedFileNamingAndTriggeringPolicy>
+		</rollingPolicy>
+		<encoder>
+			<Pattern>%date{yyyy-MM-dd HH:mm:ss} %-5level [%logger{80} ]
+				%X{transactionId} - %msg%n</Pattern>
+			<charset>UTF-8</charset>
+		</encoder>
+	</appender>
+
+	<logger name="org.springframework" level="INFO" additivity="false">
+		<appender-ref ref="stdout" />
+	</logger>
+
+	<root level="debug">
+		<appender-ref ref="stdout" />
+	</root>
+</configuration>

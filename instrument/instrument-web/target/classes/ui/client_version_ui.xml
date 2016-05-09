@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Templet id="1002" desc="客户端版本升级"><!--desc -->
+	<input id="CLIENT_OS" type="radio" label="客户端系统:IOS,Android"  value="1,2"/>
+	<input id="CLIENT_OS_VERSION" type="text" label="客户端系统版本" value="" />
+	<input id="CLIENT_NAME" type="radio" label="客户端名称:钱盒商户通,开通宝" value="1,2" />
+	<input id="CLIENT_VERSION" type="text" label="客户端版本" value="3.4.1" />
+	<input id="UPDATE_CONTENT" type="text" label="版本更新内容" value="" />
+	<input id="IS_SUPPORTED" type="radio" label="是否支持:支持,不支持" value="0,1" /><!-- 默认自动选择第一个正常 -->
+	<input id="IS_LASTEST" type="radio" label="是否最新版本:是,不是" value="0,1" />
+	<input id="FILE_URL" type="text" label="文件版本下载地址" value=""/>
+	<input id="FILE_SIZE" type="text" label="文件大小" value=""/>
+	<input id="MD5" type="text" label="MD5" value=""/>
+	<input id="EXT1" type="text" label="EXT1" value=""/>
+	<input id="EXT2" type="text" label="EXT2" value=""/>
+	<input id="VERSION_CODE" type="text" label="版本号" value="1"/>
+	<input id="DEPLOY_TYPE" type="radio" label="版本支持类型:默认,指定商户类型,指定机构类型,指定手机厂商,指定手机型号,指定某设备(百度云ID)" 
+			value="-1,1,2,3,4,5"/>
+	<input id="EXT3" type="text" label="更新参数配置" value=""/>
+</Templet>

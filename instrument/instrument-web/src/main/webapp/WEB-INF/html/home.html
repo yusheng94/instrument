@@ -1,0 +1,119 @@
+ <!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>主页</title>
+<link href="../css/bootstrap-min.css" rel="stylesheet">
+<link href="../css/flat-ui.css" rel="stylesheet">
+<script type="text/javascript" src="../js/jquery1.9.0.min.js"></script>
+<style type="text/css">
+    html { height: 100%; width: 1920px;}
+	body { height: 100%; width: 1920px;}
+	body ,div {
+		margin: 0px;
+		padding: 0px;
+	}
+	#main-body {
+		width: 95%;
+		height: 100%;
+		margin-left: 2.5%
+	}
+	#selection {
+		width: 20%;
+		height: 100%;
+		float: left;
+		font-family: microsoft YaHei;
+	}
+	#content {
+		font-family: microsoft YaHei;
+		width: 78%;
+		height: 100%;
+		float: left;
+		background-color: #ECF0F1;
+	}
+	.menu {
+		  position: relative;
+		  background: #1abc9c;
+		  background-size: 14px 14px;
+		  border-radius: 6px 6px 0 0;
+		  color: #34495e;
+		  padding: 1px 25px 1px;
+	}
+	.navbar-header {
+		  background-size: 14px 14px;
+		  border-radius: 6px 6px 0 0;
+	}
+	.btn-group-vertical {
+		width: 250px;
+	}
+
+</style>
+
+<script type="text/javascript">
+function ads(){
+	$.ajax({
+		 url: '/instrument-web/show' ,  
+         type: 'POST',
+         async: false,  
+         cache: false,  
+         contentType: false,  
+         processData: false,  
+         success: function (data) {  
+        	for(var key in data){
+        			$(".btn-group-vertical").append("<button class='btn btn-default' type='button' value="+data[key].id+" onclick='sel(this)'>"+data[key].desc+"</button>");	
+        	}
+        	 $(".btn-group-vertical button:first").click();
+         },  
+         error: function () {  
+             alert("操作失败");  
+         }  
+	});
+}
+
+</script>
+</head>
+<body onload="ads()">
+<!-- 头部导航 -->
+<div id="navi">
+  <div class="navbar navbar-default" >
+      <div class="container">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="#">脚本生成工具</a>
+        </div>
+      </div>
+  </div>     
+</div>
+<div style="background-color: white; height: 4px;" > </div>
+<div id="main-body">
+
+
+<!-- 左侧选择菜单 -->
+<div id="selection" >
+	<div style="padding-left: 30px;">
+		<p>菜单</p>
+	</div>
+	<div class="btn-group-vertical">
+	
+    </div>
+</div>
+<div style="background-color: white; height: 100%; width: 0.3%; float: left;" > </div>
+<!-- 右侧内容展示 -->
+	<div id="content">
+		<iframe id="if" src="result.html" style="width: 100%;height: 100%;" frameborder="no" title = ""></iframe>
+	</div>
+</div>
+
+
+<!-- 底部 -->
+<div id="buttom">
+</div>
+<script type="text/javascript">
+function sel(e){
+	$("#if").attr("title",$(e).val());
+    document.getElementById("if").contentWindow.location.reload(true);
+
+	
+}
+</script>
+</body>
+</html>

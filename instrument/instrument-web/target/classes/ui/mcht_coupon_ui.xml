@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Templet id="1001" desc="发放优惠券"><!--desc -->
+	<input id="COUPON_OBJ_TYPE" type="text" label="COUPON_OBJ_TYPE" value="1"/>
+	<input id="TBL_DISCOUNT_COUPON_DTL_ID" type="text" label="TBL_DISCOUNT_COUPON_DTL_ID" value="1043" />
+	<input id="COUPON_STATUS" type="text" label="COUPON_STATUS" value="0" />
+	<input id="COUPON_START_TIME" type="text" label="COUPON_START_TIME" value="20160330000000" />
+	<input id="COUPON_END_TIME" type="text" label="COUPON_END_TIME" value="20160412235959" /><!-- 默认自动选择第一个正常 -->
+	<input id="REMARK" type="text" label="REMARK" value="0329T1清算延迟补偿T1刷卡免扣券" />
+	<input id="PROMOTION_ID" type="text" label="PROMOTION_ID" value="1000382"/>
+</Templet>

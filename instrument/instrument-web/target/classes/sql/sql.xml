@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Template>
+<sql id="1000">
+insert into tbl_service_wx_config 
+(ID, MCHT_NO, APP_ID, MCH_ID, SUB_MCH_ID, APP_KEY, STATUS, REMARK, CRT_USER, CRT_TIME, UPDATE_TIME)
+values 
+(tbl_service_wx_config_seq.nextval, #{MCHT_NO}, #{APP_ID}, #{MCH_ID}, #{SUB_MCH_ID}, #{APP_KEY}, #{STATUS}, #{REMARK}, #{CRT_USER}, sysdate, sysdate);
+</sql>
+
+<sql id="1001">
+insert into tbl_mcht_coupon_rel
+(ID_TBL_MCHT_COUPON,COUPON_OBJ_TYPE,COUPON_OBJ_NO,TBL_DISCOUNT_COUPON_DTL_ID,COUPON_STATUS,COUPON_START_TIME,COUPON_END_TIME,CREATE_TIME,UPDATE_TIME,REMARK,PROMOTION_ID)
+select  seq_tbl_mcht_coupon_rel.nextval,#{COUPON_OBJ_TYPE},
+ct.mcht_nocoupon_obj_no,
+#{TBL_DISCOUNT_COUPON_DTL_ID},#{COUPON_STATUS},#{COUPON_START_TIME},#{COUPON_END_TIME},sysdate,sysdate,#{REMARK},#{PROMOTION_ID}
+from fspf_dcqs.rp_coup_temp ct,(select rownum rn from dual connect by rownum &lt;= 6) b
+where round(ct.coup_cn) &gt;=b.rn ;
+</sql>
+
+<sql id="1002">
+insert into tbl_client_version (ID, CLIENT_OS, CLIENT_OS_VERSION, CLIENT_NAME, CLIENT_VERSION, UPDATE_CONTENT, IS_SUPPORTED, IS_LASTEST, FILE_URL, FILE_SIZE, MD5, EXT1, EXT2, DEPLOY_TIME, VERSION_CODE, DEPLOY_TYPE, EXT3)
+values (seq_TBL_CLIENT_VERSION.Nextval, #{CLIENT_OS}, #{CLIENT_OS_VERSION}, #{CLIENT_NAME}, #{CLIENT_VERSION}, #{UPDATE_CONTENT}, #{IS_SUPPORTED}, #{IS_LASTEST}, #{FILE_URL}, #{FILE_SIZE}, #{MD5}, #{EXT1}, #{EXT2},sysdate, #{VERSION_CODE}, #{DEPLOY_TYPE}, #{EXT3});
+</sql>
+
+
+
+</Template>
